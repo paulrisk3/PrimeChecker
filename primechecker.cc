@@ -3,32 +3,81 @@
 
 using namespace std;
 
+/*
+Fringe cases:
+1) Numbers less than the prime formula (2, 3)
+    What if there are no primes less than the square root of the candidate?
+    Do we just assume that 2 and 3 are prime?
+    
+*/
 void is_prime(int prime_candidate)
 {
-    bool prime_status;
     double candidate_sqrt;
-    int divisor = 5;
+    int divisor = 2;
 
-    // 1) Check is the candidate is divisble by two and three.
-    if(prime_candidate % 2 == 0 || prime_candidate % 3 == 0)
+    // 1) Check that the number is greater than 1 (no prime number is less than 2).
+    if(prime_candidate <= 1)
     {
         cout << prime_candidate << " is not prime.\n";
         return;
     }
 
-    // 2) Check if the candidate is divisble by all other primes less than its square root.
-    else{
-        // 2.1) Take the candidate's square root.
-        candidate_sqrt = sqrt(prime_candidate);
-
-        // 2.2) Calculate the divisor.
-
-        // 2.3) While divisor <= candidate_sqrt, modulus the prime_candidate against the increasing primes (divisor).
-
-        // 2.4) interpret the result.
+    // 2) Check if number is equal to 2, 3, 5, or 7. 
+    if(prime_candidate == 2 || prime_candidate == 3 || prime_candidate == 5 || prime_candidate == 7)
+    {
         cout << prime_candidate << " is prime.\n";
         return;
     }
+    // 3) Check the number against all primes less than its square root.
+    else
+    {
+        // 3.1) Take candidate's square root.
+        candidate_sqrt = sqrt(prime_candidate);
+
+        // 3.2) Check the modulus of the square root and the divisor.
+        while(divisor <= candidate_sqrt)
+        {
+            if(prime_candidate % divisor == 0)
+            {
+                cout << prime_candidate << " is not prime.\n";
+                return;
+            }
+
+            divisor++;
+            if(prime_candidate % divisor == 0)
+            {
+                cout << prime_candidate << " is not prime.\n";
+                return;
+            }
+
+            for(int i = 1; divisor <= candidate_sqrt; i++)
+            {
+                divisor = (6 * i) - 1;
+                if(prime_candidate % divisor == 0)
+                {
+                    cout << prime_candidate << " is not prime.\n";
+                    return;
+                }
+
+                if(divisor > candidate_sqrt)
+                {
+                    cout << prime_candidate << " is prime.\n";
+                    return;
+                }
+
+                divisor += 2;
+                if(prime_candidate % divisor == 0)
+                {
+                    cout << prime_candidate << " is not prime.\n";
+                    return;
+                }
+            }
+        }
+    }
+
+    // 4) interpret the result.
+    cout << prime_candidate << " is prime.\n";
+    return;
 }
 
 int main()
@@ -42,6 +91,5 @@ int main()
     
     is_prime(prime_candidate);
 
-    system("pause");
     return 0;
 }
