@@ -115,8 +115,14 @@ int main()
         }
         else
         {
-
-            prime_candidate = stoll(user_input);
+            try
+            {
+                prime_candidate = stoll(user_input);
+            }
+            catch(invalid_argument& e)
+            {
+                continue;
+            }
             is_prime(prime_candidate);
         }
     }
