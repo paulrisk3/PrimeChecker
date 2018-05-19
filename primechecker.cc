@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+#include <stdlib.h>
 #include <math.h>
 
 using namespace std;
@@ -18,14 +20,14 @@ void is_prime(int prime_candidate)
     // 1) Check that the number is greater than 1 (no prime number is less than 2).
     if(prime_candidate <= 1)
     {
-        cout << prime_candidate << " is not prime.\n";
+        cout << prime_candidate << " is not prime.\n\n";
         return;
     }
 
-    // 2) Check if number is equal to 2, 3, 5, or 7. 
-    if(prime_candidate == 2 || prime_candidate == 3 || prime_candidate == 5 || prime_candidate == 7)
+    // 2) Check if number is equal to 2 or 3. 
+    if(prime_candidate == 2 || prime_candidate == 3)
     {
-        cout << prime_candidate << " is prime.\n";
+        cout << prime_candidate << " is prime.\n\n";
         return;
     }
     // 3) Check the number against all primes less than its square root.
@@ -39,14 +41,26 @@ void is_prime(int prime_candidate)
         {
             if(prime_candidate % divisor == 0)
             {
-                cout << prime_candidate << " is not prime.\n";
+                cout << prime_candidate << " is not prime.\n\n";
                 return;
             }
 
             divisor++;
+            if(divisor > candidate_sqrt)
+            {
+                cout << prime_candidate << " is prime.\n\n";
+                return;
+            }
+            
             if(prime_candidate % divisor == 0)
             {
-                cout << prime_candidate << " is not prime.\n";
+                cout << prime_candidate << " is not prime.\n\n";
+                return;
+            }
+
+            if(divisor > candidate_sqrt)
+            {
+                cout << prime_candidate << " is prime.\n\n";
                 return;
             }
 
@@ -55,20 +69,20 @@ void is_prime(int prime_candidate)
                 divisor = (6 * i) - 1;
                 if(prime_candidate % divisor == 0)
                 {
-                    cout << prime_candidate << " is not prime.\n";
+                    cout << prime_candidate << " is not prime.\n\n";
                     return;
                 }
 
                 if(divisor > candidate_sqrt)
                 {
-                    cout << prime_candidate << " is prime.\n";
+                    cout << prime_candidate << " is prime.\n\n";
                     return;
                 }
 
                 divisor += 2;
                 if(prime_candidate % divisor == 0)
                 {
-                    cout << prime_candidate << " is not prime.\n";
+                    cout << prime_candidate << " is not prime.\n\n";
                     return;
                 }
             }
@@ -76,20 +90,36 @@ void is_prime(int prime_candidate)
     }
 
     // 4) interpret the result.
-    cout << prime_candidate << " is prime.\n";
+    cout << prime_candidate << " is prime.\n\n";
     return;
 }
 
 int main()
 {
-    int prime_candidate;
+    string user_input;
+    bool quit = false;
+    long long int prime_candidate;
 
-    cout << "Prime Checker\n\n";
-    cout << "Please input the integer to be checked: ";
+    cout << "Prime Checker\n";
+    cout << "Reliable to around 270000000\n\n";
 
-    cin >> prime_candidate;
-    
-    is_prime(prime_candidate);
+    while(quit == false)
+    {
+        cout << "Please input the integer to be checked (or 'q' to exit): ";
+        getline(cin, user_input);
+
+        if(user_input == "q")
+        {
+            quit = true;
+            continue;
+        }
+        else
+        {
+
+            prime_candidate = stoll(user_input);
+            is_prime(prime_candidate);
+        }
+    }
 
     return 0;
 }
