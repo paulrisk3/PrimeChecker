@@ -6,7 +6,7 @@ I enjoy writing in C++, but my job for the past year has had me writing in PHP. 
 
 I got the idea for this project from a job interview question I faced several months ago. The interviewer asked me to present a basic algorithm to find if a number is prime or not. I gave a fairly weak answer, and it's bugged me to this day. So I am writing this program in order to better understand primr numbers and their properties.
 
-#How to use
+# How to use
 
 The Python files can be run from a Python shell or terminal with Python commands enabled.
 
